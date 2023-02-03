@@ -7,8 +7,9 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { RolesGuard } from './users/role.guard';
+import { RolesGuard } from './role.guard';
 import { UsersModule } from './users/users.module';
+import { RolesModule } from './roles/roles.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { UsersModule } from './users/users.module';
     }),
     MikroOrmModule.forRoot(),
     UsersModule,
+    RolesModule,
   ],
   controllers: [AppController],
   providers: [

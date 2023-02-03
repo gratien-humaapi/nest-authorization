@@ -1,34 +1,38 @@
+import { EntityManager } from '@mikro-orm/sqlite';
 import { Injectable } from '@nestjs/common';
+import { UnauthorizedException } from '@nestjs/common/exceptions';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
-import { Role } from './entities/role.enum';
 import { User } from './entities/user.entity';
-
-const users = [
-  { id: 1, name: 'John', roles: [Role.ADMIN] },
-  { id: 2, name: 'Paul', roles: [Role.USER] },
-  { id: 3, name: 'Paris', roles: [Role.USER] },
-];
+import { UserRepository } from './entities/user.repository';
 
 @Injectable()
 export class UsersService {
-  create(createUserInput: CreateUserInput) {
-    return users.push({ id: users.length + 1, ...createUserInput });
+  constructor(
+    private readonly userRepository: UserRepository,
+    private em: EntityManager,
+  ) {}
+  async create(createUserInput: CreateUserInput) {
+    const user = this.userRepository.create(createUserInput);
+    await this.userRepository.persistAndFlush(user);
+    return user;
   }
 
-  findAll() {
+  async findAll() {
+    const users = await this.userRepository.findAll();
     return users;
   }
 
-  findOne(id: number) {
-    return users.find((value) => value.id === id);
+  async findOne(id: string) {
+    const user = await this.userRepository.findOne({ id });
+    return user;
   }
 
-  update(id: number, updateUserInput: UpdateUserInput) {
-    return `This action updates a #${id} user`;
+  update(iupdateUserInput: UpdateUserInput) {
+    return `This action updates a user`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  remove(id: string) {
+    return `This action removes a user`;
   }
 }

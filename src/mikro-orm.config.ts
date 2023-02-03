@@ -9,7 +9,7 @@ const MikroOrmConfig: Options = {
   entitiesTs: ['src/**/*.entity.ts'],
   // db config
   type: 'sqlite',
-  dbName: 'database.db',
+  dbName: 'database.sqlite',
   // db config
   metadataProvider: TsMorphMetadataProvider,
   debug: true,
