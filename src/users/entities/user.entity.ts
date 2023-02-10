@@ -16,15 +16,19 @@ export class User {
     return this.role?.name ?? '';
   }
 
+  @Property()
+  @Field({})
+  name: string;
+
+  @Field()
+  @Property()
+  password: string;
+
   @Field()
   @Property()
   roleId: string;
 
   @ManyToOne()
-  @HideField()
+  @Field()
   role: Role;
-
-  @Property()
-  @Field({})
-  name: string;
 }

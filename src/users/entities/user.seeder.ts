@@ -20,18 +20,22 @@ export class UserSeeder extends Seeder {
     userFactory.createOne({
       role: roles[0],
       roleId: roles[0].id,
+      roleName: roles[0].name,
     });
     userFactory.createOne({
       role: roles[1],
       roleId: roles[1].id,
+      roleName: roles[1].name,
     });
     userFactory.createOne({
       role: roles[2],
       roleId: roles[2].id,
+      roleName: roles[2].name,
     });
     userFactory.make(3, {
       role: roles[2],
       roleId: roles[2].id,
+      roleName: roles[2].name,
     });
   }
 }

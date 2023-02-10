@@ -10,6 +10,9 @@ import { AppService } from './app.service';
 import { RolesGuard } from './role.guard';
 import { UsersModule } from './users/users.module';
 import { RolesModule } from './roles/roles.module';
+import { PermissionsGuard } from './permissions.guard';
+import { CaslAbilityFactory } from './ability/ability.factory';
+// import { AbilityModule } from './ability/ability.module';
 
 @Module({
   imports: [
@@ -22,13 +25,19 @@ import { RolesModule } from './roles/roles.module';
     MikroOrmModule.forRoot(),
     UsersModule,
     RolesModule,
+    // AbilityModule,
   ],
   controllers: [AppController],
   providers: [
     AppService,
+    CaslAbilityFactory,
+    // {
+    //   provide: APP_GUARD,
+    //   useClass: RolesGuard,
+    // },
     {
       provide: APP_GUARD,
-      useClass: RolesGuard,
+      useClass: PermissionsGuard,
     },
   ],
 })

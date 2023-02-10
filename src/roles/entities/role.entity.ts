@@ -1,6 +1,13 @@
-import { Entity, PrimaryKey, Property, Unique } from '@mikro-orm/core';
+import {
+  Embedded,
+  Entity,
+  PrimaryKey,
+  Property,
+  Unique,
+} from '@mikro-orm/core';
 import { Field, ObjectType } from '@nestjs/graphql';
 import { v4 } from 'uuid';
+import { Permissions } from '../embedded/permissions.embedded';
 import { RoleRepository } from './role.repository';
 
 @ObjectType()
@@ -15,7 +22,7 @@ export class Role {
   // @Unique()
   name: string;
 
-  @Field(() => [String])
-  @Property({ type: 'array' })
-  permissions: string[];
+  @Field(() => [Permissions])
+  @Embedded(() => Permissions, { object: true })
+  permissions: Permissions[];
 }

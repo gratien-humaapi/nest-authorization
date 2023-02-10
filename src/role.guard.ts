@@ -3,7 +3,9 @@ import { EntityManager } from '@mikro-orm/sqlite';
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { RolesEnum } from 'src/enum/role.enum';
+import defineAbilityFor from './ability/ability.factory';
 import { PermissionsEnum } from './enum/permission.enum';
+import { Role } from './roles/entities/role.entity';
 import { User } from './users/entities/user.entity';
 
 @Injectable()
@@ -27,26 +29,30 @@ export class RolesGuard implements CanActivate {
     const user = await this.em.findOne(
       User,
       {
-        id: '79e1972c-5db2-4e43-b95b-d5babb2d465a',
+        id: '2c7d7dba-825a-415a-81f8-abdc27b77305',
       },
       { populate: ['role'] },
     );
     console.log(user);
 
+      const ability = defineAbilityFor(user as User);
+
+      // const canContinue = ability.can()
+
     // const currentRoute = context.getHandler().name;
     // console.log(currentRoute);
 
+    // const role = await this.em.findOne(Role, { id: user?.roleId });
 
-    //* In case we use setMetadata
     // if (!requireRoles) {
-    //       return true;
-    //     }
+    //   return true;
+    // }
 
-    if (requireRoles) {
-      return requireRoles.some((role) => user?.roleName == role);
-    }
+    // if (requireRoles) {
+    //   return requireRoles.some((role) => user?.roleName == role);
+    // }
 
-   //* Checking routes
+    //* Checking routes
     // if (adminRoutes.includes(currentRoute)) {
     //   if (user && user?.roleName === 'admin') {
     //     return true;
@@ -54,9 +60,13 @@ export class RolesGuard implements CanActivate {
     //   return false;
     // }
 
-    if (!permissions) {
-      return true;
-    }
+    // if (!permissions) {
+    //   return true;
+    // }
+
+    // return permissions.some((permission) =>
+    //   role?.permissions.includes(permission),
+    // );
 
     // return permissions.some((permission) =>
     //   user?.permissions.includes(permission),

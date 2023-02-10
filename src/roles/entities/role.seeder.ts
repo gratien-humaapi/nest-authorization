@@ -11,21 +11,23 @@ export const userRoles = [
   {
     name: 'admin',
     permissions: [
-      PermissionsEnum.ADD,
-      PermissionsEnum.GET,
-      PermissionsEnum.LIST,
-      PermissionsEnum.UPDATE,
-      PermissionsEnum.DELETE,
+      { action: PermissionsEnum.ADD, subject: 'User' },
+      { action: PermissionsEnum.GET, subject: 'User' },
+      { action: PermissionsEnum.LIST, subject: 'User' },
+      { action: PermissionsEnum.UPDATE, subject: 'User' },
+      { action: PermissionsEnum.DELETE, subject: 'User' },
     ],
   },
-  { name: 'guest', permissions: [PermissionsEnum.LIST] },
+  {
+    name: 'guest',
+  },
   {
     name: 'user',
     permissions: [
-      PermissionsEnum.ADD,
-      PermissionsEnum.GET,
-      PermissionsEnum.LIST,
-      PermissionsEnum.UPDATE,
+      { action: PermissionsEnum.ADD, subject: 'User' },
+      { action: PermissionsEnum.GET, subject: 'User' },
+      { action: PermissionsEnum.LIST, subject: 'User' },
+      { action: PermissionsEnum.UPDATE, subject: 'User' },
     ],
   },
 ];

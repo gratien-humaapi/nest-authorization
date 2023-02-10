@@ -11,6 +11,7 @@ export class UserFactory extends Factory<User> {
     return {
       // id: v4()0
       name: faker.name.firstName(),
+      password: faker.random.alphaNumeric(5),
     };
   }
 }
